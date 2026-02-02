@@ -7,6 +7,11 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <!-- Preload critical hero image -->
+    <link rel="preload" 
+          as="image" 
+          href="https://images.unsplash.com/photo-1541643600914-78b084683601?w=500&q=80&fm=webp"
+          type="image/webp">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -44,9 +49,26 @@
                     <p class="lead mb-4 fs-4">AI detects your smell preference & crafts personalized perfume. Classic luxury meets cognitive tech.</p>
                     <a href="#quiz" class="btn btn-lg btn-gold px-5 py-3 rounded-0 fw-bold">Find My Scent</a>
                 </div>
-                <div class="col-lg-6 text-center">
-                    <div class="hero-bottle animate-float">
-                        <img src="https://via.placeholder.com/400x600/1a1a2e/ffd700?text=Perfume" alt="Signature Perfume" class="img-fluid">
+                <div class="col-lg-6 text-center position-relative">
+                    <div class="hero-bottle-container">
+                        <!-- Glow effect backdrop -->
+                        <div class="perfume-glow"></div>
+                        
+                        <!-- Main perfume bottle -->
+                        <picture class="hero-bottle animate-float">
+                            <!-- WebP for modern browsers -->
+                            <source srcset="https://images.unsplash.com/photo-1541643600914-78b084683601?w=500&q=80&fm=webp" type="image/webp">
+                            <!-- JPG fallback -->
+                            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=500&q=80" 
+                                 alt="Signature Luxury Perfume Bottle" 
+                                 class="img-fluid perfume-bottle"
+                                 loading="eager"
+                                 width="400"
+                                 height="600">
+                        </picture>
+                        
+                        <!-- Decorative elements -->
+                        <div class="perfume-shine"></div>
                     </div>
                 </div>
             </div>
