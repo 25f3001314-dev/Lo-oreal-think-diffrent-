@@ -19,6 +19,61 @@ h1,h2,h3 { font-family: 'Playfair Display', serif; }
 .animate-float { animation: float 6s ease-in-out infinite; }
 @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
 
+/* Hero Bottle Container */
+.hero-bottle-container {
+    position: relative;
+    padding: 2rem;
+    z-index: 1;
+    filter: drop-shadow(0 20px 60px rgba(212, 175, 55, 0.3));
+}
+
+/* Perfume Bottle Image */
+.perfume-bottle {
+    max-width: 400px;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    transform: translateZ(0);
+}
+
+/* Glow Effect Behind Bottle */
+.perfume-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: pulse 4s ease-in-out infinite;
+    z-index: 0;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* Shine Effect (Optional) */
+.perfume-shine {
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    width: 80px;
+    height: 200px;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shine 6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 3;
+}
+
+@keyframes shine {
+    0%, 100% { opacity: 0; transform: translateX(-20%) rotate(45deg); }
+    50% { opacity: 0.8; transform: translateX(30%) rotate(45deg); }
+}
+
 .hover-lift:hover { transform: translateY(-10px); transition: 0.3s; }
 .card { border-radius: 20px; overflow: hidden; }
 .bg-gold-light { background: linear-gradient(45deg, #fff8e1, #ffecb3); }
@@ -55,6 +110,17 @@ html {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+/* Responsive adjustments for perfume bottle */
+@media (max-width: 768px) {
+    .perfume-bottle {
+        max-width: 280px;
+    }
+    .perfume-glow {
+        width: 200px;
+        height: 200px;
     }
 }
 
