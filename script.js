@@ -2,6 +2,10 @@
 // SmellSense AI - Enhanced JavaScript
 // ========================================
 
+// Constants
+const CANVAS_WIDTH = 400;
+const CANVAS_HEIGHT = 300;
+
 // Enhanced AI Detection with 7 Categories
 function generatePerfume() {
     const input = document.getElementById('smellInput').value.toLowerCase();
@@ -89,10 +93,10 @@ function displayResult(perfume) {
         </div>
         <h4 class="mt-4 gold-text">${perfume.price}</h4>
         <div class="mt-4">
-            <button onclick="sharePerfume('${perfume.name}')" class="btn btn-sm btn-outline-gold me-2">
+            <button id="shareBtn" data-perfume-name="${perfume.name}" class="btn btn-sm btn-outline-gold me-2">
                 📱 Share
             </button>
-            <button onclick="saveFavorite('${perfume.name}')" class="btn btn-sm btn-outline-gold me-2">
+            <button id="favoriteBtn" data-perfume-name="${perfume.name}" class="btn btn-sm btn-outline-gold me-2">
                 ❤️ Save Favorite
             </button>
             <a href="#cta" class="btn btn-gold">🛒 Buy Now</a>
@@ -101,6 +105,14 @@ function displayResult(perfume) {
     
     // Typing effect for perfume name
     typeWriter(perfume.name, 'perfumeNameTyping', 80);
+    
+    // Add event listeners for buttons
+    document.getElementById('shareBtn').addEventListener('click', function() {
+        sharePerfume(this.dataset.perfumeName);
+    });
+    document.getElementById('favoriteBtn').addEventListener('click', function() {
+        saveFavorite(this.dataset.perfumeName);
+    });
     
     resultDiv.classList.remove('d-none');
     resultDiv.scrollIntoView({ behavior: 'smooth' });
@@ -134,7 +146,7 @@ function sharePerfume(name) {
         // Fallback: Copy to clipboard
         navigator.clipboard.writeText(shareText + ' ' + shareUrl)
             .then(() => alert('Link copied to clipboard! Share it with friends 📋'))
-            .catch(() => alert('Could not copy to clipboard'));
+            .catch(() => alert('Could not copy to clipboard. Please copy this link manually: ' + shareUrl));
     }
 }
 
@@ -234,31 +246,33 @@ function startCamera() {
             video.srcObject = stream;
             video.classList.remove('d-none');
         })
-        .catch(err => alert('Camera access denied'));
+        .catch(err => alert('Camera access is required for virtual try-on. Please enable camera permissions in your browser settings.'));
 }
 
 function capturePhoto() {
     const video = document.getElementById('camera');
     const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, 400, 300);
+    context.drawImage(video, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     alert('Photo captured! 📸');
 }
 
 // Email Subscription
 function subscribeEmail() {
     const email = document.getElementById('emailInput').value;
-    if (email.includes('@')) {
+    // Better email validation using regex
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailPattern.test(email)) {
         localStorage.setItem('emailSubscribed', 'true');
         localStorage.setItem('userEmail', email);
         alert('✅ Subscribed! Check your inbox for 20% off code.');
         const modalElement = document.getElementById('emailModal');
-        if (modalElement) {
+        if (modalElement && typeof bootstrap !== 'undefined') {
             const modal = bootstrap.Modal.getInstance(modalElement);
             if (modal) modal.hide();
         }
     } else {
-        alert('Please enter a valid email');
+        alert('Please enter a valid email address (e.g., your@email.com)');
     }
 }
 
@@ -267,7 +281,7 @@ function showEmailModal() {
     setTimeout(() => {
         if (!localStorage.getItem('emailSubscribed')) {
             const modalElement = document.getElementById('emailModal');
-            if (modalElement) {
+            if (modalElement && typeof bootstrap !== 'undefined') {
                 new bootstrap.Modal(modalElement).show();
             }
         }
@@ -310,7 +324,8 @@ function handleScroll() {
         if (navbar) {
             navbar.style.background = window.scrollY > 50 ? 'rgba(26,26,46,0.98)' : 'rgba(26,26,46,0.95)';
         }
-    }, 10);
+    }, 100); // Increased to 100ms for better performance balance
+}
 }
 
 // Lazy load images
