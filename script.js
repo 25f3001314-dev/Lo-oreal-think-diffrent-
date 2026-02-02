@@ -322,7 +322,7 @@ function handleScroll() {
     scrollTimeout = setTimeout(() => {
         const navbar = document.querySelector('.navbar');
         if (navbar) {
-            navbar.style.background = window.scrollY > 50 ? 'rgba(26,26,46,0.98)' : 'rgba(26,26,46,0.95)';
+            navbar.style.background = window.scrollY > 50 ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)';
         }
     }, 100); // Increased to 100ms for better performance balance
 }
