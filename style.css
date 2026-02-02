@@ -363,7 +363,6 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -372,11 +371,7 @@ html {
     }
 }
 
-/* Preload critical fonts */
-@font-face {
-    font-family: 'Poppins';
-    font-display: swap;
-}
+/* Preload critical fonts - loaded via Google Fonts */
 
 /* Debounce scroll events */
 .navbar {
@@ -421,9 +416,5 @@ html {
     
     .floating-elements {
         display: none;
-    }
-    
-    .float-element {
-        font-size: 1.5rem;
     }
 }
