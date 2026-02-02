@@ -24,3 +24,6 @@ h1,h2,h3 { font-family: 'Playfair Display', serif; }
 .bg-gold-light { background: linear-gradient(45deg, #fff8e1, #ffecb3); }
 
 footer a { text-decoration: none; }
+/* Cookie Consent Banner L'Oréal Style */
+#cookieConsent { 
+    box-shadow
