@@ -24,13 +24,13 @@ h1,h2,h3 { font-family: 'Playfair Display', serif; }
     position: relative;
     padding: 2rem;
     z-index: 1;
+    filter: drop-shadow(0 20px 60px rgba(212, 175, 55, 0.3));
 }
 
 /* Perfume Bottle Image */
 .perfume-bottle {
     max-width: 400px;
     height: auto;
-    filter: drop-shadow(0 20px 60px rgba(212, 175, 55, 0.3));
     position: relative;
     z-index: 2;
     transform: translateZ(0);
@@ -64,7 +64,6 @@ h1,h2,h3 { font-family: 'Playfair Display', serif; }
     width: 80px;
     height: 200px;
     background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transform: rotate(45deg);
     animation: shine 6s ease-in-out infinite;
     pointer-events: none;
     z-index: 3;
