@@ -326,7 +326,6 @@ function handleScroll() {
         }
     }, 100); // Increased to 100ms for better performance balance
 }
-}
 
 // Lazy load images
 function lazyLoadImages() {
