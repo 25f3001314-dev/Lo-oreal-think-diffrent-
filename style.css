@@ -24,6 +24,64 @@ h1,h2,h3 { font-family: 'Playfair Display', serif; }
 .bg-gold-light { background: linear-gradient(45deg, #fff8e1, #ffecb3); }
 
 footer a { text-decoration: none; }
+
 /* Cookie Consent Banner L'Oréal Style */
 #cookieConsent { 
-    box-shadow
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+    z-index: 9999;
+    will-change: transform;
+}
+
+/* GPU acceleration for animations */
+.animate-fadein, .animate-float, .hover-lift {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Optimize images */
+img {
+    image-rendering: -webkit-optimize-contrast;
+    will-change: transform;
+}
+
+/* Smooth scrolling with reduced motion support */
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Preload critical fonts */
+@font-face {
+    font-family: 'Montserrat';
+    font-display: swap;
+}
+
+/* Debounce scroll events */
+.navbar {
+    transition: background 0.2s ease;
+}
+
+/* Additional styles for new features */
+.btn-outline-gold {
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.btn-outline-gold:hover {
+    background: var(--gold);
+    color: var(--dark);
+}
+
+.text-gold {
+    color: var(--gold);
+}
