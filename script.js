@@ -155,11 +155,6 @@ function toggleLoadingState(isLoading) {
     });
 }
 
-// Show Loading Animation (Deprecated - use toggleLoadingState)
-function showLoadingAnimation() {
-    toggleLoadingState(true);
-}
-
 // Enhanced Result Display with Smooth Animations
 function displayResult(perfume) {
     const resultDiv = DOM.get('result');
@@ -516,11 +511,6 @@ function getSeasonalRecommendation() {
     return 'Discover your perfect scent today ✨';
 }
 
-function displaySeasonalRecommendation() {
-    // Banner already exists in HTML
-    return;
-}
-
 // ========================================
 // PERFORMANCE UTILITIES
 // ========================================
@@ -606,7 +596,6 @@ function showCookieBanner() {
 // App initialization with performance optimization
 function initApp() {
     updateFavoritesCount();
-    displaySeasonalRecommendation();
     lazyLoadImages();
     showCookieBanner();
     
