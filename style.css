@@ -337,13 +337,21 @@ img[loading="lazy"].loaded {
     color: #495057;
 }
 
-/* Prevent body scroll when modal is open */
-body.modal-open {
+/* Prevent body scroll when modal is open - REMOVED to allow background scrolling */
+/* body.modal-open {
     overflow: hidden;
     padding-right: 0 !important;
-}
+} */
 
 .modal.show {
+    overflow-y: auto;
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
     overflow-y: auto;
 }
 
