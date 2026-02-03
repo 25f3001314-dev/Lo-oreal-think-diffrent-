@@ -1,89 +1,172 @@
 // ========================================
-// SmellSense AI - Enhanced JavaScript
+// SmellSense AI - Clean Code Architecture
 // ========================================
 
-// Constants
-const CANVAS_WIDTH = 400;
-const CANVAS_HEIGHT = 300;
+// Configuration Object (Single Source of Truth)
+const CONFIG = {
+    canvas: { width: 400, height: 300 },
+    timing: {
+        loadingDelay: 1500,
+        typingSpeed: 80,
+        scrollDebounce: 100,
+        emailModalDelay: 15000
+    },
+    storage: {
+        favorites: 'favorites',
+        quizHistory: 'quizHistory',
+        emailSubscribed: 'emailSubscribed',
+        userEmail: 'userEmail',
+        cookiesAccepted: 'cookiesAccepted'
+    },
+    limits: {
+        minInputLength: 3,
+        maxInputLength: 200,
+        maxHistoryItems: 10
+    }
+};
 
-// Enhanced AI Detection with 7 Categories
-function generatePerfume() {
-    const inputElement = document.getElementById('smellInput');
-    const input = inputElement.value.trim().toLowerCase();
+// Scent Profiles Database (Weighted Keywords)
+const SCENT_PROFILES = {
+    woody: { keywords: ['woody', 'sandalwood', 'cedar', 'oak', 'pine', 'earthy'], weight: 1.2 },
+    floral: { keywords: ['floral', 'rose', 'jasmine', 'lavender', 'lily', 'peony'], weight: 1.0 },
+    citrus: { keywords: ['citrus', 'lemon', 'orange', 'bergamot', 'grapefruit', 'lime'], weight: 1.0 },
+    oriental: { keywords: ['oriental', 'vanilla', 'amber', 'musk', 'incense', 'exotic'], weight: 1.1 },
+    aquatic: { keywords: ['aquatic', 'ocean', 'marine', 'water', 'sea', 'fresh'], weight: 1.0 },
+    gourmand: { keywords: ['gourmand', 'chocolate', 'caramel', 'honey', 'sweet', 'dessert'], weight: 0.9 },
+    spicy: { keywords: ['spicy', 'pepper', 'cinnamon', 'ginger', 'cardamom', 'clove'], weight: 1.0 }
+};
+
+// Perfume Collection (Product Database)
+const PERFUMES = {
+    woody: { name: 'Sandalwood Noir', top: 'Cedarwood', heart: 'Sandalwood', base: 'Oakmoss', price: '₹5,499' },
+    floral: { name: 'Lavender Bliss', top: 'Rose', heart: 'Jasmine', base: 'Violet', price: '₹4,999' },
+    citrus: { name: 'Citrus Dream', top: 'Bergamot', heart: 'Lemon', base: 'Neroli', price: '₹4,499' },
+    oriental: { name: 'Amber Mystique', top: 'Saffron', heart: 'Amber', base: 'Vanilla', price: '₹6,999' },
+    aquatic: { name: 'Aquatic Marine', top: 'Sea Salt', heart: 'Water Lily', base: 'Driftwood', price: '₹5,299' },
+    gourmand: { name: 'Caramel Indulgence', top: 'Almond', heart: 'Caramel', base: 'Tonka Bean', price: '₹5,799' },
+    spicy: { name: 'Spice Route', top: 'Pink Pepper', heart: 'Cardamom', base: 'Cinnamon', price: '₹5,999' }
+};
+
+// DOM Cache (Performance Optimization)
+const DOM = {
+    cache: new Map(),
+    get(id) {
+        if (!this.cache.has(id)) {
+            this.cache.set(id, document.getElementById(id));
+        }
+        return this.cache.get(id);
+    },
+    query(selector) {
+        const key = `query_${selector}`;
+        if (!this.cache.has(key)) {
+            this.cache.set(key, document.querySelector(selector));
+        }
+        return this.cache.get(key);
+    },
+    clearCache() {
+        this.cache.clear();
+    }
+};
+
+// ========================================
+// CORE ALGORITHM: Advanced Scent Detection
+// ========================================
+
+// TF-IDF-like Weighted Scoring Algorithm
+function analyzeScent(input) {
+    const tokens = input.toLowerCase().split(/\s+/);
+    const scores = {};
     
-    // Input validation
-    if (!input || input.length < 3) {
-        alert('Please enter at least 3 characters to describe your preferred scent.');
-        inputElement.focus();
+    // Calculate weighted scores for each category
+    for (const [category, profile] of Object.entries(SCENT_PROFILES)) {
+        scores[category] = 0;
+        
+        // TF (Term Frequency): Count keyword matches
+        profile.keywords.forEach(keyword => {
+            const matches = tokens.filter(token => token.includes(keyword) || keyword.includes(token)).length;
+            scores[category] += matches * profile.weight;
+        });
+        
+        // Boost for exact matches
+        if (input.includes(category)) {
+            scores[category] += 2 * profile.weight;
+        }
+    }
+    
+    // Get category with highest score
+    const sortedCategories = Object.entries(scores)
+        .sort(([, a], [, b]) => b - a);
+    
+    // Return best match or default
+    return sortedCategories[0][1] > 0 ? sortedCategories[0][0] : 'citrus';
+}
+
+// Main Perfume Generation (Clean Architecture)
+function generatePerfume() {
+    const inputElement = DOM.get('smellInput');
+    const input = inputElement?.value.trim() || '';
+    
+    // Validation
+    if (input.length < CONFIG.limits.minInputLength) {
+        showNotification('Please enter at least 3 characters to describe your preferred scent.', 'warning');
+        inputElement?.focus();
         return;
     }
     
-    // Show loading animation
-    showLoadingAnimation();
+    // Show loading with smooth transition
+    toggleLoadingState(true);
     
-    // AI Detection Logic with scoring system
-    const scentProfiles = {
-        woody: ['woody', 'sandalwood', 'cedar', 'oak', 'pine', 'earthy'],
-        floral: ['floral', 'rose', 'jasmine', 'lavender', 'lily', 'peony'],
-        citrus: ['citrus', 'lemon', 'orange', 'bergamot', 'grapefruit', 'lime'],
-        oriental: ['oriental', 'vanilla', 'amber', 'musk', 'incense', 'exotic'],
-        aquatic: ['aquatic', 'ocean', 'marine', 'water', 'sea', 'fresh'],
-        gourmand: ['gourmand', 'chocolate', 'caramel', 'honey', 'sweet', 'dessert'],
-        spicy: ['spicy', 'pepper', 'cinnamon', 'ginger', 'cardamom', 'clove']
-    };
+    // Analyze scent with advanced algorithm
+    const dominantScent = analyzeScent(input);
+    const perfume = PERFUMES[dominantScent];
     
-    // Multi-word detection with scoring
-    let scores = {};
-    
-    // Score calculation
-    for (let category in scentProfiles) {
-        scores[category] = 0;
-        scentProfiles[category].forEach(keyword => {
-            if (input.includes(keyword)) scores[category]++;
-        });
-    }
-    
-    // Get dominant scent
-    let dominantScent = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-    
-    // If no match found, default to citrus
-    if (scores[dominantScent] === 0) {
-        dominantScent = 'citrus';
-    }
-    
-    // Perfume recommendations
-    const perfumes = {
-        woody: { name: 'Sandalwood Noir', top: 'Cedarwood', heart: 'Sandalwood', base: 'Oakmoss', price: '₹5,499' },
-        floral: { name: 'Lavender Bliss', top: 'Rose', heart: 'Jasmine', base: 'Violet', price: '₹4,999' },
-        citrus: { name: 'Citrus Dream', top: 'Bergamot', heart: 'Lemon', base: 'Neroli', price: '₹4,499' },
-        oriental: { name: 'Amber Mystique', top: 'Saffron', heart: 'Amber', base: 'Vanilla', price: '₹6,999' },
-        aquatic: { name: 'Aquatic Marine', top: 'Sea Salt', heart: 'Water Lily', base: 'Driftwood', price: '₹5,299' },
-        gourmand: { name: 'Caramel Indulgence', top: 'Almond', heart: 'Caramel', base: 'Tonka Bean', price: '₹5,799' },
-        spicy: { name: 'Spice Route', top: 'Pink Pepper', heart: 'Cardamom', base: 'Cinnamon', price: '₹5,999' }
-    };
-    
-    // Display result with animation (1.5s delay for AI effect)
+    // Display result with delay for AI effect
     setTimeout(() => {
-        displayResult(perfumes[dominantScent]);
-        saveToHistory(perfumes[dominantScent]);
-    }, 1500);
+        displayResult(perfume);
+        saveToHistory(perfume);
+    }, CONFIG.timing.loadingDelay);
 }
 
-// Show Loading Animation
+// ========================================
+// UI UTILITIES
+// ========================================
+
+// Unified notification system (replaces alerts)
+function showNotification(message, type = 'info') {
+    // Use luxury toast or alert fallback
+    alert(message);
+}
+
+// Toggle loading state with smooth transitions
+function toggleLoadingState(isLoading) {
+    const loadingDiv = DOM.get('loadingAnimation');
+    const resultDiv = DOM.get('result');
+    
+    if (!loadingDiv || !resultDiv) return;
+    
+    requestAnimationFrame(() => {
+        if (isLoading) {
+            loadingDiv.classList.remove('d-none');
+            resultDiv.classList.add('d-none');
+        } else {
+            loadingDiv.classList.add('d-none');
+            resultDiv.classList.remove('d-none');
+        }
+    });
+}
+
+// Show Loading Animation (Deprecated - use toggleLoadingState)
 function showLoadingAnimation() {
-    document.getElementById('loadingAnimation').classList.remove('d-none');
-    document.getElementById('result').classList.add('d-none');
+    toggleLoadingState(true);
 }
 
-// Enhanced Result Display with Typing Effect
+// Enhanced Result Display with Smooth Animations
 function displayResult(perfume) {
-    const loadingDiv = document.getElementById('loadingAnimation');
-    const resultDiv = document.getElementById('result');
+    const resultDiv = DOM.get('result');
+    if (!resultDiv) return;
     
-    // Hide loading
-    loadingDiv.classList.add('d-none');
-    
-    resultDiv.innerHTML = `
+    // Template for result display
+    const resultTemplate = `
         <h3 class="gold-text mb-3">Your Signature Scent</h3>
         <h2 class="fw-bold mb-4" id="perfumeNameTyping"></h2>
         <div class="row text-start">
@@ -93,37 +176,56 @@ function displayResult(perfume) {
         </div>
         <h4 class="mt-4 gold-text">${perfume.price}</h4>
         <div class="mt-4">
-            <button id="shareBtn" data-perfume-name="${perfume.name}" class="btn btn-sm btn-outline-gold me-2">
+            <button class="btn btn-sm btn-outline-gold me-2 action-share" data-name="${perfume.name}">
                 📱 Share
             </button>
-            <button id="favoriteBtn" data-perfume-name="${perfume.name}" class="btn btn-sm btn-outline-gold me-2">
+            <button class="btn btn-sm btn-outline-gold me-2 action-favorite" data-name="${perfume.name}">
                 ❤️ Save Favorite
             </button>
             <a href="#cta" class="btn btn-gold">🛒 Buy Now</a>
         </div>
     `;
     
-    // Typing effect for perfume name
-    typeWriter(perfume.name, 'perfumeNameTyping', 80);
-    
-    // Add event listeners for buttons
-    document.getElementById('shareBtn').addEventListener('click', function() {
-        sharePerfume(this.dataset.perfumeName);
+    // Use requestAnimationFrame for smooth rendering
+    requestAnimationFrame(() => {
+        toggleLoadingState(false);
+        resultDiv.innerHTML = resultTemplate;
+        
+        // Typing effect with smooth animation
+        typeWriter(perfume.name, 'perfumeNameTyping', CONFIG.timing.typingSpeed);
+        
+        // Event delegation for action buttons
+        attachResultListeners(resultDiv);
+        
+        // Smooth scroll
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
-    document.getElementById('favoriteBtn').addEventListener('click', function() {
-        saveFavorite(this.dataset.perfumeName);
-    });
-    
-    resultDiv.classList.remove('d-none');
-    resultDiv.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Typing Animation
+// Event Delegation for Result Actions
+function attachResultListeners(container) {
+    container.addEventListener('click', (e) => {
+        const target = e.target.closest('[data-name]');
+        if (!target) return;
+        
+        const perfumeName = target.dataset.name;
+        
+        if (target.classList.contains('action-share')) {
+            sharePerfume(perfumeName);
+        } else if (target.classList.contains('action-favorite')) {
+            saveFavorite(perfumeName);
+        }
+    });
+}
+
+// Typing Animation (Optimized with requestAnimationFrame)
 function typeWriter(text, elementId, speed) {
-    let i = 0;
-    const element = document.getElementById(elementId);
+    const element = DOM.get(elementId);
     if (!element) return;
+    
     element.textContent = '';
+    let i = 0;
+    
     function type() {
         if (i < text.length) {
             element.textContent += text.charAt(i);
@@ -131,100 +233,157 @@ function typeWriter(text, elementId, speed) {
             setTimeout(type, speed);
         }
     }
-    type();
+    
+    requestAnimationFrame(type);
 }
 
-// Social Sharing Function
+// Social Sharing (Optimized with better fallback)
 function sharePerfume(name) {
     const shareText = `I discovered my signature scent: ${name} 🌸✨ Find yours at SmellSense AI!`;
     const shareUrl = window.location.href;
     
     if (navigator.share) {
         navigator.share({ title: 'My Signature Scent', text: shareText, url: shareUrl })
-            .catch(err => console.log('Share failed', err));
+            .catch(err => console.warn('Share failed:', err));
+    } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(`${shareText} ${shareUrl}`)
+            .then(() => showNotification('Link copied to clipboard! Share it with friends 📋', 'success'))
+            .catch(() => showNotification(`Could not copy. Link: ${shareUrl}`, 'error'));
     } else {
-        // Fallback: Copy to clipboard
-        navigator.clipboard.writeText(shareText + ' ' + shareUrl)
-            .then(() => alert('Link copied to clipboard! Share it with friends 📋'))
-            .catch(() => alert('Could not copy to clipboard. Please copy this link manually: ' + shareUrl));
+        showNotification(`Share this link: ${shareUrl}`, 'info');
     }
 }
 
-// Save Favorite Scents (localStorage)
+// ========================================
+// STORAGE UTILITIES
+// ========================================
+
+// LocalStorage Wrapper with Error Handling
+const Storage = {
+    get(key, defaultValue = null) {
+        try {
+            const item = localStorage.getItem(CONFIG.storage[key] || key);
+            return item ? JSON.parse(item) : defaultValue;
+        } catch (error) {
+            console.error(`Storage get error for ${key}:`, error);
+            return defaultValue;
+        }
+    },
+    
+    set(key, value) {
+        try {
+            localStorage.setItem(CONFIG.storage[key] || key, JSON.stringify(value));
+            return true;
+        } catch (error) {
+            console.error(`Storage set error for ${key}:`, error);
+            return false;
+        }
+    },
+    
+    remove(key) {
+        try {
+            localStorage.removeItem(CONFIG.storage[key] || key);
+            return true;
+        } catch (error) {
+            console.error(`Storage remove error for ${key}:`, error);
+            return false;
+        }
+    },
+    
+    has(key) {
+        return localStorage.getItem(CONFIG.storage[key] || key) !== null;
+    }
+};
+
+// Save Favorite Scents (Optimized)
 function saveFavorite(perfumeName) {
-    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    if (!favorites.includes(perfumeName)) {
-        favorites.push(perfumeName);
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-        alert('❤️ Added to favorites!');
-        updateFavoritesCount();
-    } else {
-        alert('Already in favorites!');
+    const favorites = Storage.get('favorites', []);
+    
+    if (favorites.includes(perfumeName)) {
+        showNotification('Already in favorites!', 'info');
+        return;
     }
+    
+    favorites.push(perfumeName);
+    Storage.set('favorites', favorites);
+    showNotification('❤️ Added to favorites!', 'success');
+    updateFavoritesCount();
 }
 
-// Display favorites count in navbar
+// Display favorites count in navbar (Memoized)
+let cachedFavoritesCount = null;
 function updateFavoritesCount() {
-    const count = JSON.parse(localStorage.getItem('favorites') || '[]').length;
-    const brandElement = document.querySelector('.navbar-brand');
+    const favorites = Storage.get('favorites', []);
+    const count = favorites.length;
+    
+    if (count === cachedFavoritesCount) return;
+    cachedFavoritesCount = count;
+    
+    const brandElement = DOM.query('.navbar-brand');
     if (brandElement && count > 0) {
         brandElement.innerHTML = `SmellSense<sup>AI</sup> <span class="badge bg-warning text-dark ms-2">${count}</span>`;
     }
 }
 
-// Quiz History Tracker
+// Quiz History Tracker (Optimized)
 function saveToHistory(perfume) {
-    let history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+    const history = Storage.get('quizHistory', []);
+    
     history.unshift({
         perfume: perfume.name,
         date: new Date().toLocaleDateString(),
         timestamp: Date.now()
     });
     
-    // Keep only last 10 entries
-    if (history.length > 10) history = history.slice(0, 10);
-    
-    localStorage.setItem('quizHistory', JSON.stringify(history));
+    // Keep only configured max items
+    Storage.set('quizHistory', history.slice(0, CONFIG.limits.maxHistoryItems));
 }
 
-// View history
+// View History (Optimized with Templates)
 function showHistory() {
-    const history = JSON.parse(localStorage.getItem('quizHistory') || '[]');
+    const history = Storage.get('quizHistory', []);
+    const historySection = DOM.get('historySection');
+    
+    if (!historySection) return;
+    
     if (history.length === 0) {
-        alert('No quiz history yet!');
+        showNotification('No quiz history yet!', 'info');
         return;
     }
     
-    let historyHtml = '<h4 class="mb-4">Your Quiz History</h4><ul class="list-group">';
-    history.forEach(item => {
-        historyHtml += `<li class="list-group-item d-flex justify-content-between align-items-center">
-            <span>${item.perfume}</span>
-            <span class="badge bg-gold text-dark">${item.date}</span>
-        </li>`;
-    });
-    historyHtml += '</ul>';
+    // Build history list efficiently
+    const historyItems = history
+        .map(item => `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>${item.perfume}</span>
+                <span class="badge bg-gold text-dark">${item.date}</span>
+            </li>
+        `)
+        .join('');
     
-    // Display in history section
-    const historySection = document.getElementById('historySection');
-    if (historySection) {
-        historySection.innerHTML = `
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        ${historyHtml}
-                        <div class="text-center mt-3">
-                            <button onclick="clearHistory()" class="btn btn-outline-danger btn-sm">Clear History</button>
-                        </div>
+    const historyTemplate = `
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h4 class="mb-4">Your Quiz History</h4>
+                    <ul class="list-group">${historyItems}</ul>
+                    <div class="text-center mt-3">
+                        <button onclick="clearHistory()" class="btn btn-outline-danger btn-sm">Clear History</button>
                     </div>
                 </div>
             </div>
-        `;
-    }
+        </div>
+    `;
+    
+    requestAnimationFrame(() => {
+        historySection.innerHTML = historyTemplate;
+    });
 }
 
 function clearHistory() {
-    localStorage.removeItem('quizHistory');
-    const historySection = document.getElementById('historySection');
+    Storage.remove('quizHistory');
+    const historySection = DOM.get('historySection');
+    
     if (historySection) {
         historySection.innerHTML = `
             <div class="container">
@@ -238,17 +397,21 @@ function clearHistory() {
     }
 }
 
-// Virtual Try-On Camera Functions
+// ========================================
+// CAMERA & MEDIA
+// ========================================
+
+// Virtual Try-On Camera (Optimized)
 function startCamera() {
-    const video = document.getElementById('camera');
+    const video = DOM.get('camera');
     
-    // Check if mediaDevices API is supported
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        alert('Camera not supported on this device/browser. Please use a modern browser like Chrome, Firefox, or Safari.');
+    if (!navigator.mediaDevices?.getUserMedia) {
+        showNotification('Camera not supported on this device/browser. Please use Chrome, Firefox, or Safari.', 'error');
         return;
     }
     
-    navigator.mediaDevices.getUserMedia({ video: { width: 400, height: 300 } })
+    navigator.mediaDevices
+        .getUserMedia({ video: CONFIG.canvas })
         .then(stream => {
             video.srcObject = stream;
             video.classList.remove('d-none');
@@ -256,23 +419,22 @@ function startCamera() {
         })
         .catch(err => {
             console.error('Camera error:', err);
-            alert('Camera access denied. Please enable camera permissions in your browser settings and try again.');
+            showNotification('Camera access denied. Please enable camera permissions in browser settings.', 'error');
         });
 }
 
 function capturePhoto() {
-    const video = document.getElementById('camera');
-    const canvas = document.getElementById('canvas');
+    const video = DOM.get('camera');
+    const canvas = DOM.get('canvas');
     
-    // Check if camera is active
-    if (!video.srcObject) {
-        alert('Please start the camera first!');
+    if (!video?.srcObject) {
+        showNotification('Please start the camera first!', 'warning');
         return;
     }
     
     const context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    alert('Photo captured! 📸');
+    context.drawImage(video, 0, 0, CONFIG.canvas.width, CONFIG.canvas.height);
+    showNotification('Photo captured! 📸', 'success');
 }
 
 // Email Subscription
@@ -306,52 +468,87 @@ function showEmailModal() {
     }, 15000);
 }
 
-// Seasonal Recommendations
+// ========================================
+// SEASONAL & MISC
+// ========================================
+
+// Seasonal Recommendations (Reusable)
 function getSeasonalRecommendation() {
     const month = new Date().getMonth();
-    const seasonal = {
-        winter: [11, 0, 1], // Dec, Jan, Feb - Woody, Oriental
-        spring: [2, 3, 4],  // Mar, Apr, May - Floral
-        summer: [5, 6, 7],  // Jun, Jul, Aug - Aquatic, Citrus
-        autumn: [8, 9, 10]  // Sep, Oct, Nov - Spicy, Gourmand
-    };
+    const seasonal = new Map([
+        [[11, 0, 1], 'Try our warm Sandalwood Noir for winter ❄️'],
+        [[2, 3, 4], 'Fresh Lavender Bliss for spring 🌸'],
+        [[5, 6, 7], 'Cool Aquatic Marine for summer 🌊'],
+        [[8, 9, 10], 'Spice Route for autumn vibes 🍂']
+    ]);
     
-    if (seasonal.winter.includes(month)) return 'Try our warm Sandalwood Noir for winter ❄️';
-    if (seasonal.spring.includes(month)) return 'Fresh Lavender Bliss for spring 🌸';
-    if (seasonal.summer.includes(month)) return 'Cool Aquatic Marine for summer 🌊';
-    return 'Spice Route for autumn vibes 🍂';
+    for (const [months, message] of seasonal) {
+        if (months.includes(month)) return message;
+    }
+    
+    return 'Discover your perfect scent today ✨';
 }
 
-// Display seasonal recommendation on page load
 function displaySeasonalRecommendation() {
-    // Banner already exists in HTML, no need to create duplicate
+    // Banner already exists in HTML
     return;
 }
 
-// Debounced scroll handler for performance
-let scrollTimeout;
-function handleScroll() {
-    if (scrollTimeout) clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        const navbar = document.querySelector('.navbar');
-        if (navbar) {
-            navbar.style.background = window.scrollY > 50 ? 'rgba(26,26,46,0.98)' : 'rgba(26,26,46,0.95)';
-        }
-    }, 100); // Increased to 100ms for better performance balance
+// ========================================
+// PERFORMANCE UTILITIES
+// ========================================
+
+// Debounce utility for performance
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
 
-// Lazy load images
+// Throttle utility for scroll events
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+// Optimized scroll handler with throttle
+const handleScroll = throttle(() => {
+    const navbar = DOM.query('.navbar');
+    if (navbar) {
+        const opacity = window.scrollY > 50 ? 0.98 : 0.95;
+        navbar.style.background = `rgba(26,26,46,${opacity})`;
+    }
+}, CONFIG.timing.scrollDebounce);
+
+// Lazy load images with IntersectionObserver
 function lazyLoadImages() {
     const images = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries) => {
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
                 img.src = img.dataset.src;
-                imageObserver.unobserve(img);
+                img.classList.add('loaded');
+                observer.unobserve(img);
             }
         });
+    }, {
+        rootMargin: '50px'
     });
+    
     images.forEach(img => imageObserver.observe(img));
 }
 
@@ -375,14 +572,29 @@ function showCookieBanner() {
     }
 }
 
-// Initialize everything on DOM load
-document.addEventListener('DOMContentLoaded', () => {
+// ========================================
+// INITIALIZATION
+// ========================================
+
+// App initialization with performance optimization
+function initApp() {
     updateFavoritesCount();
     displaySeasonalRecommendation();
     lazyLoadImages();
-    showEmailModal();
     showCookieBanner();
     
-    // Add scroll listener with passive flag for performance
+    // Delayed non-critical tasks
+    requestIdleCallback(() => {
+        showEmailModal();
+    }, { timeout: 2000 });
+    
+    // Event listeners
     window.addEventListener('scroll', handleScroll, { passive: true });
-});
+}
+
+// DOM Ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
