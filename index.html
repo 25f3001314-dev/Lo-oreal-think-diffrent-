@@ -35,19 +35,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navbar Classic -->
+    <!-- Navbar L'Oréal Style -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" role="navigation" aria-label="Main navigation">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#" aria-label="SmellSense AI Home">SmellSense<sup>AI</sup></a>
+        <a class="navbar-brand fw-bold loreal-brand" href="#" aria-label="L'Oréal Paris Home">L'ORÉAL PARIS</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#skincare">Skin Care</a></li>
                 <li class="nav-item"><a class="nav-link" href="#haircare">Hair Care</a></li>
-                <li class="nav-item"><a class="nav-link" href="#skin">Skin Care</a></li>
-                <li class="nav-item"><a class="nav-link" href="#quiz">Virtual Try</a></li>
-                <li class="nav-item"><a class="nav-link btn-gold ms-2" href="#cta">Shop</a></li>
+                <li class="nav-item"><a class="nav-link" href="#haircolor">Hair Color</a></li>
+                <li class="nav-item"><a class="nav-link" href="#makeup">Makeup</a></li>
+                <li class="nav-item"><a class="nav-link" href="#virtualtools">Virtual Tools</a></li>
+                <li class="nav-item"><a class="nav-link btn-gold ms-2 px-3" href="#cta">Shop Now</a></li>
             </ul>
         </div>
     </div>
@@ -59,17 +61,63 @@
     </div>
 
     <!-- Hero Section L'Oréal Style -->
-    <section id="hero" class="vh-100 d-flex align-items-center text-white">
-        <div class="container">
+    <section id="hero" class="hero-loreal d-flex align-items-center text-white">
+        <div class="hero-overlay"></div>
+        <div class="container position-relative" style="z-index: 2;">
             <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h1 class="display-3 fw-bold mb-4 animate-fadein">Discover Your <span class="gold-text">Signature Scent</span></h1>
-                    <p class="lead mb-4 fs-4">AI detects your smell preference & crafts personalized perfume. Classic luxury meets cognitive tech.</p>
-                    <a href="#quiz" class="btn btn-lg btn-gold px-5 py-3 rounded-0 fw-bold">Find My Scent</a>
+                <div class="col-lg-7">
+                    <p class="text-uppercase text-gold fw-bold mb-3 ls-wider">NEW VIRTUAL BEAUTY TECHNOLOGY</p>
+                    <h1 class="display-2 fw-bold mb-4 animate-fadein">Discover Your<br><span class="gold-text">Signature Scent</span></h1>
+                    <p class="lead mb-4 fs-4">AI-powered smell detection crafts personalized perfume recommendations. Experience the future of fragrance discovery with virtual scent profiling.</p>
+                    <p class="tagline-loreal mb-5 fs-3 fw-light fst-italic">Because You're Worth It</p>
+                    <a href="#virtualtools" class="btn btn-lg btn-gold px-5 py-3 rounded-0 fw-bold me-3">TRY VIRTUAL SCENT TOOL</a>
+                    <a href="#products" class="btn btn-lg btn-outline-light px-5 py-3 rounded-0 fw-bold">SHOP COLLECTION</a>
                 </div>
-                <div class="col-lg-6 text-center">
+                <div class="col-lg-5 text-center d-none d-lg-block">
                     <div class="hero-bottle animate-float">
-                        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=500&h=700&fit=crop" alt="Elegant Woman with Signature Perfume" class="img-fluid rounded-4 shadow-lg" loading="eager">
+                        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&h=800&fit=crop" alt="Elegant Woman with Signature Perfume" class="img-fluid rounded-3 shadow-lg" loading="eager">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Virtual Beauty Tools Section -->
+    <section id="virtualtools" class="py-5 bg-white">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">VIRTUAL BEAUTY TOOLS</h2>
+                <p class="lead text-muted">Experience beauty innovation powered by AI</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="virtual-tool-card text-center p-4 h-100 shadow-sm">
+                        <div class="tool-icon mb-3">
+                            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=200&h=200&fit=crop" alt="Perfume Smell Detection" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+                        </div>
+                        <h5 class="fw-bold mb-3">Perfume Smell Detection</h5>
+                        <p class="text-muted mb-4">Analyze your scent preferences and discover personalized perfume recommendations with our AI-powered smell detection tool.</p>
+                        <a href="#quiz" class="btn btn-dark rounded-0 px-4">TRY NOW</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="virtual-tool-card text-center p-4 h-100 shadow-sm">
+                        <div class="tool-icon mb-3">
+                            <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=200&h=200&fit=crop" alt="Makeup Virtual Try On" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+                        </div>
+                        <h5 class="fw-bold mb-3">Makeup Virtual Try On</h5>
+                        <p class="text-muted mb-4">Test your favorite makeup products virtually and find the perfect shades before you buy.</p>
+                        <a href="#virtualTryon" class="btn btn-outline-dark rounded-0 px-4">COMING SOON</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="virtual-tool-card text-center p-4 h-100 shadow-sm">
+                        <div class="tool-icon mb-3">
+                            <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=200&h=200&fit=crop" alt="Hair Color Try On" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;">
+                        </div>
+                        <h5 class="fw-bold mb-3">Hair Color Virtual Try On</h5>
+                        <p class="text-muted mb-4">Virtually change your hair color and see real-time results before starting the coloring process.</p>
+                        <a href="#haircolor" class="btn btn-outline-dark rounded-0 px-4">COMING SOON</a>
                     </div>
                 </div>
             </div>
@@ -122,9 +170,12 @@
     </section>
 
     <!-- Products -->
-    <section id="products" class="py-5">
+    <section id="products" class="py-5 bg-white">
         <div class="container">
-            <h2 class="text-center mb-5 display-5 fw-bold">Our Collections</h2>
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">EXPLORE PERFUME COLLECTION</h2>
+                <p class="lead text-muted">Discover fragrances that define your unique style</p>
+            </div>
             <div class="row g-4 align-items-stretch">
                 <div class="col-md-4">
                     <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
@@ -165,10 +216,14 @@
             </div>
         </div>
     </section>
+    
     <!-- Hair Care Section -->
 <section id="haircare" class="py-5 bg-light">
     <div class="container">
-        <h2 class="text-center mb-5 display-5 fw-bold">Hair Care Excellence</h2>
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">HAIR CARE</h2>
+            <p class="lead text-muted">Restore and protect your hair with professional care</p>
+        </div>
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
@@ -211,9 +266,12 @@
 </section>
 
 <!-- Skin Care -->
-<section id="skin" class="py-5">
+<section id="skincare" class="py-5 bg-white">
     <div class="container">
-        <h2 class="text-center mb-5 display-5 fw-bold">Skin Care</h2>
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">SKIN CARE</h2>
+            <p class="lead text-muted">Unlock the secret to spotless, glowing skin</p>
+        </div>
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
@@ -255,11 +313,203 @@
     </div>
 </section>
 
+<!-- Hair Color Section -->
+<section id="haircolor" class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">HAIR COLOR</h2>
+            <p class="lead text-muted">Transform your look with salon-quality hair color</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
+                    <div class="card-img-wrapper" style="height: 250px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=250&fit=crop" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Casting Crème Gloss" loading="lazy">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title gold-text mb-3">Casting Crème Gloss</h5>
+                        <p class="card-text mb-4 flex-grow-1">Ammonia-free conditioning hair color.</p>
+                        <a href="#" class="btn btn-outline-gold mt-auto">₹599</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
+                    <div class="card-img-wrapper" style="height: 250px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=250&fit=crop" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Excellence Hair Color" loading="lazy">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title gold-text mb-3">Excellence Crème</h5>
+                        <p class="card-text mb-4 flex-grow-1">100% grey coverage with triple care.</p>
+                        <a href="#" class="btn btn-outline-gold mt-auto">₹699</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
+                    <div class="card-img-wrapper" style="height: 250px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1522337094846-8a818192de1f?w=400&h=250&fit=crop" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Colorista Hair Color" loading="lazy">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title gold-text mb-3">Colorista</h5>
+                        <p class="card-text mb-4 flex-grow-1">Temporary vibrant hair color shades.</p>
+                        <a href="#" class="btn btn-outline-gold mt-auto">₹499</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Makeup Section -->
+<section id="makeup" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">MAKEUP</h2>
+            <p class="lead text-muted">Elevate your beauty game with professional makeup</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
+                    <div class="card-img-wrapper" style="height: 250px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=250&fit=crop" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Rouge Signature Lipstick" loading="lazy">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title gold-text mb-3">Rouge Signature</h5>
+                        <p class="card-text mb-4 flex-grow-1">Lightweight liquid lip color.</p>
+                        <a href="#" class="btn btn-outline-gold mt-auto">₹899</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
+                    <div class="card-img-wrapper" style="height: 250px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=250&fit=crop" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Infallible Foundation" loading="lazy">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title gold-text mb-3">Infallible 24H</h5>
+                        <p class="card-text mb-4 flex-grow-1">Long-lasting full coverage foundation.</p>
+                        <a href="#" class="btn btn-outline-gold mt-auto">₹1,199</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
+                    <div class="card-img-wrapper" style="height: 250px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1583241800698-fa4e5d92e4cc?w=400&h=250&fit=crop" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Paradise Mascara" loading="lazy">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title gold-text mb-3">Paradise Mascara</h5>
+                        <p class="card-text mb-4 flex-grow-1">Voluminous lashes with soft bristles.</p>
+                        <a href="#" class="btn btn-outline-gold mt-auto">₹799</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- CTA -->
-<section id="cta" class="py-5 bg-warning text-dark">
+<section id="cta" class="py-5 bg-dark text-white">
     <div class="container text-center">
         <h2 class="display-4 fw-bold mb-4">Shop Your Signature Scent</h2>
         <a href="#quiz" class="btn btn-lg btn-dark px-5 py-3 fs-4">Buy Now</a>
+    </div>
+</section>
+
+<!-- Hair Color Section -->
+<section id="haircolor" class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">HAIR COLOR</h2>
+            <p class="lead text-muted">Transform your look with salon-quality hair color</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
+                    <div class="card-img-wrapper" style="height: 250px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=250&fit=crop" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Casting Crème Gloss" loading="lazy">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title gold-text mb-3">Casting Crème Gloss</h5>
+                        <p class="card-text mb-4 flex-grow-1">Ammonia-free conditioning hair color.</p>
+                        <a href="#" class="btn btn-outline-gold mt-auto">₹599</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
+                    <div class="card-img-wrapper" style="height: 250px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=250&fit=crop" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Excellence Hair Color" loading="lazy">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title gold-text mb-3">Excellence Crème</h5>
+                        <p class="card-text mb-4 flex-grow-1">100% grey coverage with triple care.</p>
+                        <a href="#" class="btn btn-outline-gold mt-auto">₹699</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
+                    <div class="card-img-wrapper" style="height: 250px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1522337094846-8a818192de1f?w=400&h=250&fit=crop" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Colorista Hair Color" loading="lazy">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title gold-text mb-3">Colorista</h5>
+                        <p class="card-text mb-4 flex-grow-1">Temporary vibrant hair color shades.</p>
+                        <a href="#" class="btn btn-outline-gold mt-auto">₹499</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Makeup Section -->
+<section id="makeup" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">MAKEUP</h2>
+            <p class="lead text-muted">Elevate your beauty game with professional makeup</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
+                    <div class="card-img-wrapper" style="height: 250px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=250&fit=crop" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Rouge Signature Lipstick" loading="lazy">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title gold-text mb-3">Rouge Signature</h5>
+                        <p class="card-text mb-4 flex-grow-1">Lightweight liquid lip color.</p>
+                        <a href="#" class="btn btn-outline-gold mt-auto">₹899</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
+                    <div class="card-img-wrapper" style="height: 250px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=250&fit=crop" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Infallible Foundation" loading="lazy">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title gold-text mb-3">Infallible 24H</h5>
+                        <p class="card-text mb-4 flex-grow-1">Long-lasting full coverage foundation.</p>
+                        <a href="#" class="btn btn-outline-gold mt-auto">₹1,199</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-lg border-0 hover-lift d-flex flex-column">
+                    <div class="card-img-wrapper" style="height: 250px; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1583241800698-fa4e5d92e4cc?w=400&h=250&fit=crop" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="Paradise Mascara" loading="lazy">
+                    </div>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title gold-text mb-3">Paradise Mascara</h5>
+                        <p class="card-text mb-4 flex-grow-1">Voluminous lashes with soft bristles.</p>
+                        <a href="#" class="btn btn-outline-gold mt-auto">₹799</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -277,24 +527,51 @@
     </div>
 </section>
 
-  <!-- Footer with Privacy -->
-    <footer class="bg-dark text-white py-5">
+  <!-- Footer L'Oréal Style -->
+    <footer class="footer-loreal bg-dark text-white py-5">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>SmellSense AI</h5>
-                    <p>Luxury redefined by AI.</p>
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <h5 class="fw-bold mb-4 loreal-brand">L'ORÉAL PARIS</h5>
+                    <p class="tagline-footer fst-italic">Because You're Worth It</p>
+                    <div class="social-links mt-4">
+                        <a href="#" class="text-white me-3" aria-label="Facebook"><i class="fab fa-facebook-f"></i> Facebook</a><br>
+                        <a href="#" class="text-white me-3" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a><br>
+                        <a href="#" class="text-white" aria-label="YouTube"><i class="fab fa-youtube"></i> YouTube</a>
+                    </div>
                 </div>
                 <div class="col-md-3">
-                    <h6>Legal</h6>
+                    <h6 class="text-uppercase fw-bold mb-3">Our Categories</h6>
                     <ul class="list-unstyled">
-                        <li><a href="Privacy.html" class="text-white-50">Privacy Policy</a></li>
-                        <li><a href="#" class="text-white-50">Terms</a></li>
+                        <li class="mb-2"><a href="#skincare" class="text-white-50">Skin Care</a></li>
+                        <li class="mb-2"><a href="#haircare" class="text-white-50">Hair Care</a></li>
+                        <li class="mb-2"><a href="#haircolor" class="text-white-50">Hair Color</a></li>
+                        <li class="mb-2"><a href="#makeup" class="text-white-50">Makeup</a></li>
+                        <li class="mb-2"><a href="#products" class="text-white-50">Perfumes</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <h6>Contact</h6>
-                    <p>hello@smellsense.ai</p>
+                    <h6 class="text-uppercase fw-bold mb-3">Our Commitments</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50">Sustainable Growth</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Stand Up Against Harassment</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Dermatologist Board</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Our Science</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="text-uppercase fw-bold mb-3">More to Explore</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#virtualtools" class="text-white-50">Virtual Beauty Tools</a></li>
+                        <li class="mb-2"><a href="Privacy.html" class="text-white-50">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Terms & Conditions</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row border-top border-secondary pt-4">
+                <div class="col-12 text-center">
+                    <p class="mb-0 text-white-50 small">© 2026 L'Oréal Paris. We use cookies to enhance site navigation, content personalization, analyze site usage, and assist us in our marketing efforts.</p>
                 </div>
             </div>
         </div>

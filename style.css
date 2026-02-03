@@ -21,6 +21,23 @@ h1,h2,h3 {
     letter-spacing: 0.5px;
 }
 
+/* L'Oréal Brand Styling */
+.loreal-brand {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-size: 1.4rem !important;
+}
+
+.ls-wider {
+    letter-spacing: 2px;
+}
+
+.tagline-loreal {
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+}
+
 .navbar { 
     background: rgba(26,26,46,0.95)!important; 
     backdrop-filter: blur(10px); 
@@ -38,6 +55,23 @@ h1,h2,h3 {
 }
 
 .gold-text { color: var(--gold)!important; }
+
+.hero-loreal {
+    min-height: 90vh;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #2c3e50 100%);
+    position: relative;
+    padding-top: 100px;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.1), transparent);
+    pointer-events: none;
+}
 
 #hero { background: linear-gradient(135deg, var(--dark), #16213e); }
 
@@ -128,6 +162,29 @@ h1,h2,h3 {
     box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
 
+/* Virtual Beauty Tools Styling */
+.virtual-tool-card {
+    background: white;
+    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #e9ecef;
+}
+
+.virtual-tool-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    border-color: var(--gold);
+}
+
+.virtual-tool-card .tool-icon img {
+    border: 3px solid #f8f9fa;
+    transition: border-color 0.3s ease;
+}
+
+.virtual-tool-card:hover .tool-icon img {
+    border-color: var(--gold);
+}
+
 .bg-gold-light { 
     background: linear-gradient(45deg, #fff8e1, #ffecb3); 
 }
@@ -148,6 +205,57 @@ h1,h2,h3 {
 }
 
 footer a { text-decoration: none; }
+
+/* CTA Section L'Oréal Style */
+.cta-loreal {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0d0d1b 100%);
+    padding: 80px 0;
+    position: relative;
+}
+
+.cta-loreal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.15), transparent);
+    pointer-events: none;
+}
+
+/* Footer L'Oréal Style */
+.footer-loreal {
+    background: #0a0a0a !important;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.footer-loreal h5,
+.footer-loreal h6 {
+    color: var(--gold);
+}
+
+.footer-loreal a {
+    transition: color 0.3s ease;
+}
+
+.footer-loreal a:hover {
+    color: var(--gold) !important;
+}
+
+.tagline-footer {
+    color: var(--gold);
+    font-size: 1.1rem;
+}
+
+.social-links a {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: translateX(5px);
+}
 
 /* Cookie Consent Banner L'Oréal Style */
 #cookieConsent { 
