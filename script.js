@@ -342,12 +342,33 @@ function lazyLoadImages() {
     images.forEach(img => imageObserver.observe(img));
 }
 
+// Cookie Consent Functions
+function acceptCookies() { 
+    document.getElementById('cookieConsent').classList.add('d-none'); 
+    localStorage.setItem('cookiesAccepted', 'true'); 
+}
+
+function cookieSettings() { 
+    alert('Cookie Settings: Essential cookies enabled. Analytics optional.'); 
+}
+
+// Show cookie banner if not accepted
+function showCookieBanner() {
+    if (!localStorage.getItem('cookiesAccepted')) {
+        const banner = document.getElementById('cookieConsent');
+        if (banner) {
+            banner.classList.remove('d-none');
+        }
+    }
+}
+
 // Initialize everything on DOM load
 document.addEventListener('DOMContentLoaded', () => {
     updateFavoritesCount();
     displaySeasonalRecommendation();
     lazyLoadImages();
     showEmailModal();
+    showCookieBanner();
     
     // Add scroll listener with passive flag for performance
     window.addEventListener('scroll', handleScroll, { passive: true });
