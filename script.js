@@ -32,14 +32,6 @@ function generatePerfume() {
         spicy: ['spicy', 'pepper', 'cinnamon', 'ginger', 'cardamom', 'clove']
     };
     
-    // Mood-based recommendations
-    const moods = {
-        romantic: ['romantic', 'date', 'love', 'passion'],
-        energetic: ['energetic', 'active', 'sporty', 'dynamic'],
-        calm: ['calm', 'relaxing', 'peaceful', 'zen'],
-        confident: ['confident', 'bold', 'powerful', 'strong']
-    };
-    
     // Multi-word detection with scoring
     let scores = {};
     
@@ -332,13 +324,8 @@ function getSeasonalRecommendation() {
 
 // Display seasonal recommendation on page load
 function displaySeasonalRecommendation() {
-    const banner = document.createElement('div');
-    banner.className = 'alert alert-info text-center mb-0 py-3';
-    banner.textContent = getSeasonalRecommendation();
-    const heroSection = document.getElementById('hero');
-    if (heroSection && heroSection.nextElementSibling) {
-        heroSection.parentNode.insertBefore(banner, heroSection.nextElementSibling);
-    }
+    // Banner already exists in HTML, no need to create duplicate
+    return;
 }
 
 // Debounced scroll handler for performance
