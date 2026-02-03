@@ -161,10 +161,8 @@
     <!-- Quiz History Section -->
     <section id="historySection" class="py-3 bg-light">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 text-center">
-                    <button onclick="showHistory()" class="btn btn-outline-gold">📜 View Quiz History</button>
-                </div>
+            <div class="text-center">
+                <button onclick="showHistory()" class="btn btn-outline-gold">📜 View Quiz History</button>
             </div>
         </div>
     </section>
@@ -421,14 +419,20 @@
 
 <!-- Virtual Try-On Section -->
 <section id="virtualTryon" class="py-5 bg-light">
-    <div class="container text-center">
-        <h2 class="display-5 fw-bold mb-4">Virtual Try-On 📸</h2>
-        <p class="lead mb-4">See how the scent feels on you (coming soon with AR)</p>
-        <video id="camera" width="400" height="300" autoplay class="rounded shadow d-none" aria-label="Virtual try-on camera preview"></video>
-        <canvas id="canvas" width="400" height="300" class="rounded shadow"></canvas>
-        <div class="mt-4">
-            <button onclick="startCamera()" class="btn btn-gold me-2">Start Camera</button>
-            <button onclick="capturePhoto()" class="btn btn-outline-gold">Capture Photo</button>
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="display-5 fw-bold mb-3">Virtual Try-On 📸</h2>
+            <p class="lead text-muted">See how the scent feels on you (coming soon with AR)</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 text-center">
+                <video id="camera" class="rounded shadow d-none w-100" style="max-width: 500px; height: auto;" autoplay aria-label="Virtual try-on camera preview"></video>
+                <canvas id="canvas" class="rounded shadow w-100" style="max-width: 500px; height: 375px;"></canvas>
+                <div class="mt-4">
+                    <button onclick="startCamera()" class="btn btn-gold me-2 px-4 py-2">Start Camera</button>
+                    <button onclick="capturePhoto()" class="btn btn-outline-gold px-4 py-2">Capture Photo</button>
+                </div>
+            </div>
         </div>
     </div>
 </section>
