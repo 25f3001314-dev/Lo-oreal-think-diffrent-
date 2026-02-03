@@ -73,8 +73,6 @@ h1,h2,h3 {
     pointer-events: none;
 }
 
-#hero { background: linear-gradient(135deg, var(--dark), #16213e); }
-
 .btn-gold { 
     background: var(--gold); 
     color: var(--dark); 
@@ -289,11 +287,6 @@ html {
 @font-face {
     font-family: 'Montserrat';
     font-display: swap;
-}
-
-/* Debounce scroll events */
-.navbar {
-    transition: background 0.2s ease;
 }
 
 /* Additional styles for new features */
