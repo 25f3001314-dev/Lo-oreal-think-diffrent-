@@ -296,21 +296,64 @@
     
     <!-- Email Capture Modal -->
     <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title" id="emailModalLabel">Get Exclusive Scent Updates 💌</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <p>Join 10,000+ scent lovers for:</p>
-                    <ul>
-                        <li>New perfume launches</li>
-                        <li>Seasonal scent recommendations</li>
-                        <li>Exclusive discounts (20% off)</li>
-                    </ul>
-                    <input type="email" id="emailInput" class="form-control mb-3" placeholder="your@email.com">
-                    <button onclick="subscribeEmail()" class="btn btn-gold w-100">Subscribe Now</button>
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content paris-modal">
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close" style="z-index: 10;"></button>
+                
+                <div class="row g-0">
+                    <!-- Left side - Paris Heritage Background -->
+                    <div class="col-md-6 paris-bg d-none d-md-block">
+                        <div class="paris-overlay">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_août_2014_%282%29.jpg/800px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_août_2014_%282%29.jpg" alt="Paris Heritage" class="paris-heritage-img">
+                        </div>
+                    </div>
+                    
+                    <!-- Right side - Form -->
+                    <div class="col-md-6 modal-form-side">
+                        <div class="p-5">
+                            <div class="text-center mb-4">
+                                <h3 class="loreal-title fw-bold">L'ORÉAL PARIS</h3>
+                                <h5 class="modal-title gold-text mb-2" id="emailModalLabel">You're Worth It, and So Is Your Inbox.</h5>
+                                <p class="text-muted small">Join Our Circle Today!</p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <p class="mb-3 fw-bold">Join 10,000+ scent lovers for:</p>
+                                <ul class="feature-list">
+                                    <li>✨ New perfume launches</li>
+                                    <li>🌸 Seasonal scent recommendations</li>
+                                    <li>💝 Exclusive discounts (20% off)</li>
+                                </ul>
+                            </div>
+                            
+                            <form>
+                                <div class="mb-3">
+                                    <input type="text" id="firstNameInput" class="form-control form-control-lg" placeholder="First Name*" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" id="lastNameInput" class="form-control form-control-lg" placeholder="Last Name*" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" id="emailInput" class="form-control form-control-lg" placeholder="your@email.com*" required>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text">+91</span>
+                                        <input type="tel" id="phoneInput" class="form-control form-control-lg" placeholder="Phone Number*" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consentCheck" required>
+                                    <label class="form-check-label small" for="consentCheck">
+                                        I confirm that I am above 18 years and consent for data processing as per the Notice. I agree to receive curated brand promotions, marketing communication, newsletters, and tele calling.
+                                    </label>
+                                </div>
+                                
+                                <button type="button" onclick="subscribeEmail()" class="btn btn-dark btn-lg w-100 fw-bold">Submit</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

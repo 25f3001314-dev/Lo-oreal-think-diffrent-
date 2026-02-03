@@ -439,20 +439,47 @@ function capturePhoto() {
 
 // Email Subscription
 function subscribeEmail() {
-    const email = document.getElementById('emailInput').value;
-    // Better email validation using regex
+    const firstName = document.getElementById('firstNameInput')?.value.trim();
+    const lastName = document.getElementById('lastNameInput')?.value.trim();
+    const email = document.getElementById('emailInput')?.value.trim();
+    const phone = document.getElementById('phoneInput')?.value.trim();
+    const consent = document.getElementById('consentCheck')?.checked;
+    
+    // Validation
+    if (!firstName || !lastName) {
+        alert('Please enter your first and last name.');
+        return;
+    }
+    
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailPattern.test(email)) {
-        localStorage.setItem('emailSubscribed', 'true');
-        localStorage.setItem('userEmail', email);
-        alert('✅ Subscribed! Check your inbox for 20% off code.');
-        const modalElement = document.getElementById('emailModal');
-        if (modalElement && typeof bootstrap !== 'undefined') {
-            const modal = bootstrap.Modal.getInstance(modalElement);
-            if (modal) modal.hide();
-        }
-    } else {
+    if (!emailPattern.test(email)) {
         alert('Please enter a valid email address (e.g., your@email.com)');
+        return;
+    }
+    
+    if (!phone || phone.length < 10) {
+        alert('Please enter a valid 10-digit phone number.');
+        return;
+    }
+    
+    if (!consent) {
+        alert('Please accept the terms to continue.');
+        return;
+    }
+    
+    // Store data
+    localStorage.setItem('emailSubscribed', 'true');
+    localStorage.setItem('userEmail', email);
+    localStorage.setItem('userName', `${firstName} ${lastName}`);
+    localStorage.setItem('userPhone', phone);
+    
+    alert('✅ Welcome to the L\\'Oréal Paris Circle! Check your inbox for your 20% off code.');
+    
+    // Close modal
+    const modalElement = document.getElementById('emailModal');
+    if (modalElement && typeof bootstrap !== 'undefined') {
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) modal.hide();
     }
 }
 
