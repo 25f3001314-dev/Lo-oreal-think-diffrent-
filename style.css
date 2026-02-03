@@ -85,3 +85,40 @@ html {
 .text-gold {
     color: var(--gold);
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-brand { font-size: 1.4rem; }
+    h1.display-3 { font-size: 2.5rem; }
+    .btn-gold { padding: 0.6rem 2rem !important; }
+    #hero { min-height: 100vh; padding: 80px 0 40px; }
+    .card-body { padding: 2rem !important; }
+    #smellInput { font-size: 1rem !important; padding: 1rem !important; }
+}
+
+@media (max-width: 576px) {
+    h1.display-3 { font-size: 2rem; }
+    .lead { font-size: 1.1rem; }
+    .btn-lg { font-size: 1.1rem; padding: 0.75rem 1.5rem; }
+}
+
+/* Focus Visible for Accessibility */
+*:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+}
+
+/* Skip to Main Content Link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--gold);
+    color: var(--dark);
+    padding: 8px;
+    z-index: 10000;
+}
+
+.skip-link:focus {
+    top: 0;
+}

@@ -8,7 +8,15 @@ const CANVAS_HEIGHT = 300;
 
 // Enhanced AI Detection with 7 Categories
 function generatePerfume() {
-    const input = document.getElementById('smellInput').value.toLowerCase();
+    const inputElement = document.getElementById('smellInput');
+    const input = inputElement.value.trim().toLowerCase();
+    
+    // Input validation
+    if (!input || input.length < 3) {
+        alert('Please enter at least 3 characters to describe your preferred scent.');
+        inputElement.focus();
+        return;
+    }
     
     // Show loading animation
     showLoadingAnimation();
@@ -241,17 +249,35 @@ function clearHistory() {
 // Virtual Try-On Camera Functions
 function startCamera() {
     const video = document.getElementById('camera');
-    navigator.mediaDevices.getUserMedia({ video: true })
+    
+    // Check if mediaDevices API is supported
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert('Camera not supported on this device/browser. Please use a modern browser like Chrome, Firefox, or Safari.');
+        return;
+    }
+    
+    navigator.mediaDevices.getUserMedia({ video: { width: 400, height: 300 } })
         .then(stream => {
             video.srcObject = stream;
             video.classList.remove('d-none');
+            console.log('Camera started successfully');
         })
-        .catch(err => alert('Camera access is required for virtual try-on. Please enable camera permissions in your browser settings.'));
+        .catch(err => {
+            console.error('Camera error:', err);
+            alert('Camera access denied. Please enable camera permissions in your browser settings and try again.');
+        });
 }
 
 function capturePhoto() {
     const video = document.getElementById('camera');
     const canvas = document.getElementById('canvas');
+    
+    // Check if camera is active
+    if (!video.srcObject) {
+        alert('Please start the camera first!');
+        return;
+    }
+    
     const context = canvas.getContext('2d');
     context.drawImage(video, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     alert('Photo captured! 📸');
